@@ -1,28 +1,69 @@
-#### 1. Introductory information
-Fitbit dataset: Data_IER
+Project Title: Correlation between female independence and violence used against children - a data analysis
 
-For questions about the dataset, contact l.hoogendam@erasmusmc.nl
+### README for dataset
+#### 1. Introductory information
+Dataset: IER_research_data.xlsx (Format: Microsoft Excel Worksheet)
+
+This file contains data on crude marriage rate (CMR), crude divorce rate (CDR), the gender wage gap in %, the amount of children that experienced violence in (%), the countries this data related to, how many people live in that country, in which continents these countries are located and in which UN Statistical subregion they are located. The links to the sources are also added to this document. More detailed sources are given in the paper. Column H contains the sources on the data of the gender wage gap, when the cell says nothing the source is visible in N8, if it says N9 etc.. Column J contains the sources on the data on the amount of children that experienced violence, when the cell says nothing the source is visible in N12, if it says N13 etc.
+
+For questions about the dataset, contact j.m.degraaf@student.tudelft.nl
 
 #### 2. Methodological information
-This dataset is coming from a study with previous students. The students were asked to track the number of steps taken each day, during one week. 
+Dataset:
+The data was collected by searching online whilst keeping into account the validity of the source. This had to be either governments or recognized (large) international organizations.
+
 
 #### 3. Data specific information
 The dataset includes:
 
-- Demographics
-- Year of data collection (2019 vs 2020)
-- Expected number of steps and self-rated physical activity
-- Estimate of energy use due to physical activity
-- Attitude towards physical activity
-- Number of steps per day (app vs activity tracker)
-- Distance travelled (activity tracker)
-- Calories burned (activity tracker)
+- A: country name
+- B: population amount (2018 data, measured per in how many persons)
+- C: continent
+- D: UN Statistical subregion
+- E: CMR (crude marriage rate, amount of people to get married per 1000 people in one year)
+- F: CDR (crude marriage rate, amount of people to get married per 1000 people in one year)
+- G: The gender wage gap (%)
+- H: Sources used for the gender wage gap data
+- I: Children that experienced violence (%)
+- J: Sources used for the children that experienced violence dataset
+- M, N: Further elaboration on the sources
 
-A complete description of all variables can be found in the following file:
-https://drive.google.com/file/d/16BaDtD3aBvu9bijzOY2Mq_pLzX8K2NiS/view?usp=sharing
+Missing data results in empty columns, in MATLAB this becomes 'NaN' and is filtered out.
 
-A PDF version of this description is also available on Brightspace. 
-
+UN is an abbreviation for United Nations. No further abbreviations used.
 
 #### 4. Sharing and Access information
-The students have given consent for the re-use of the data for educational purposes. Therefore the data can be used for only this purpose. Do not share the data with others.
+No restrictions are placed on this data. All data used can be found for free on the internet.
+
+##########################################################################
+### README for software/code
+
+## 1. Introductory information
+analysis_IER.m
+This file contains the mathematical analysis performed on the data in IER_research_data.xlsx
+In the document comments further explain the code.
+
+## 2. Methodological information - Running the test and deployment
+Installation instructions:
+1. Install MATLAB.
+2. Download the code.
+3. Download the Excel file.
+4. Make sure the code and the Excel file are located in the same folder on your computer.
+5. Uncomment the plots that you want to become visible.
+6. Run the code.
+
+
+## 3. Goal of the project - Sample Test
+First the data is pre-processed to filter out incomplete data-sets. After this it is processed to show correlation between the various categories. Various figures are commented to make running the code faster. Various comments within the code further elaborate on what the variables entail and what specific operations are performed. The code is used to determine correlations between three main variables, give a visual representation of this data and to determine whether the sample size is large enough to draw conclusions for a population.
+
+## Style test
+Example of coding style:
+
+## Built with and acknowledgements
+The helps of MathWorks MATLAB forum and the Help Center.
+
+## Authors
+- Brigitte de Graaf
+
+## License
+MATLAB R2021a was used for this Project
