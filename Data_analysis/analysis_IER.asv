@@ -38,8 +38,10 @@ Matrix(:,2)=CDR_CMR;
 Matrix(:,3)=[];
 
 %% Weight the values
-Matrix(:,1)=round(Matrix(:,1),-3); %round population amount to ten thousands
-Matrix(:,1)=Matrix(:,1)./1000; %divide by million
+%v
+v=3;
+Matrix(:,1)=round(Matrix(:,1),-v); %round population amount to ten thousands
+Matrix(:,1)=Matrix(:,1)./(10*v); %divide by million
 
 Matrix_w=[]; 
 pop_rep=[];
@@ -71,10 +73,22 @@ end
 % c=colorbar;
 % c.Label.String = 'Divorce-rate [CMR/CDR]'
 
-%Countries in the complete dataset vs incomplete 
+%% Determination of amoun of people analysed
+%determine array with the population used for the analysis
+Population_complete=Population;
+Population_complete(delete_rows,:)=[];
+disp('percentage of people analysed globally:')
+analysed_p=sum(Population_complete);
+%percentage of world population analysed
+total_p=7674000000;
+analysed_p/total_p
+
+%% Contries, continents and subregions used in the for the analysis
+%determine array with the countries used for the analysis 
 Country_complete=Country;
 Country_complete(delete_rows,:)=[];
 
+%determine array with the continents used for the analysis
 Continent_complete=Continent;
 Continent_complete(delete_rows,:)=[];
 %find out how frequent each continent is sampeled in the complete data-set
@@ -86,25 +100,48 @@ Z2 = struct('name',D2,'freq',num2cell(Y2(:)));
 Y1 = hist(X1,unique(X1));
 Z1 = struct('name',D1,'freq',num2cell(Y1(:)));
 
+%determine array with the subregions used for the analysis
 Subregion_complete=Subregion;
 Subregion_complete(delete_rows,:)=[];
 
-
-
 %% Correlation
 %find correlation between the various variables 
-r_xy=corrcoef(Matrix_w(:,1), Matrix_w(:,2));
-r_yz=corrcoef(Matrix_w(:,2), Matrix_w(:,3));
-r_xz=corrcoef(Matrix_w(:,3), Matrix_w(:,1));
+%x:the ratio CDR/CMR
+%y:the gender wage gap (%)
+%z:children that experienced violence (%)
 
-%standard diviation 
+r_xy=corrcoef(Matrix_w(:,1), Matrix_w(:,2));    %Correlation between x and y
+r_yz=corrcoef(Matrix_w(:,2), Matrix_w(:,3));    %Correlation between y and z   
+r_xz=corrcoef(Matrix_w(:,3), Matrix_w(:,1));    %Correlation between x and z
+
+%% Multiple correlation
+%The multiple correlation between the variables is determined
+R_zxy=sqrt((r_xz^2+r_yz^2-2*r_xz*r_yz*r_xy)/(1-r_xy^2));
+
+%less biased multiple correlation
+R_ub=1-(1-R_zxy^2)*(size(Matrix_w(:,3),1)-1)/(size(Matrix_w(:,3),1)-3-1)
+
+%% Standard diviation 
+%determine the standard deviation for the three variables 
+Sx=std(Matrix_w(:,1));  %standard deviation x
+Sy=std(Matrix_w(:,2));  %standard deviation y
+Sz=std(Matrix_w(:,3));  %standard deviation z
+
+%determine the maximum standard deviation to find the minimum sample size 
+S=[Sx; Sy; Sz];
+S_max=max(S);
+
+z=1.96;     %z*-value for 95% interval
+MOE=0.05;   %margin of error
+%determine samples required for the 
+n=round((z*S_max/MOE)^2)
+
+
+%% 95% interval =mean of the study sample  +- 1.96*SE
+
+
 
 %SE=SD/sqrt(N)
-
-%95% interval =mean of the study sample  +- 1.96*SE
-
-
-
 %perform p-test on the found correlation
 
 
