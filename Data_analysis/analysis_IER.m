@@ -1,6 +1,6 @@
 clear all; 
 
-% Code in words:
+% First part of the code in words:
 % To filter out these countries a matrix with all the data is made. 
 % Then the NaN values in the matrix are located. 
 % The rows with NaN values have to be deleted to determine the final matrix with solely complete data-sets. 
@@ -38,10 +38,9 @@ Matrix(:,2)=CDR_CMR;
 Matrix(:,3)=[];
 
 %% Weight the values
-%v
-v=3;
+v=3;    %data is rounded off to per 10^v people
 Matrix(:,1)=round(Matrix(:,1),-v); %round population amount to ten thousands
-Matrix(:,1)=Matrix(:,1)./(10*v); %divide by million
+Matrix(:,1)=Matrix(:,1)./(10^v); %divide by million
 
 Matrix_w=[]; 
 pop_rep=[];
@@ -116,6 +115,9 @@ r_xz=corrcoef(Matrix_w(:,3), Matrix_w(:,1));    %Correlation between x and z
 
 %% Multiple correlation
 %The multiple correlation between the variables is determined
+r_xy=0.2077;        %value taken out of the matrix
+r_yz=-0.5871;       %value taken out of the matrix
+r_xz=-0.2912;       %value taken out of the matrix
 R_zxy=sqrt((r_xz^2+r_yz^2-2*r_xz*r_yz*r_xy)/(1-r_xy^2));
 
 %less biased multiple correlation
@@ -132,30 +134,8 @@ S=[Sx; Sy; Sz];
 S_max=max(S);
 
 z=1.96;     %z*-value for 95% interval
-MOE=0.05;   %margin of error
+MOE_1=0.05;   %margin of error
+MOE_2=0.01;
 %determine samples required for the 
-n=round((z*S_max/MOE)^2)
-
-
-%% 95% interval =mean of the study sample  +- 1.96*SE
-
-
-
-%SE=SD/sqrt(N)
-%perform p-test on the found correlation
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+n_1=round((z*S_max/MOE_1)^2)*10^v;  %amount of samples needed with a margin of error of 5%
+n_2=round((z*S_max/MOE_2)^2)*10^v;  %amount of samples needed with a margin of error of 1%
