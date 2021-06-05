@@ -47,10 +47,11 @@ In the document comments further explain the code.
 Installation instructions:
 1. Install MATLAB.
 2. Download the code.
-3. Download the Excel file.
+3. Download the Excel file "IER_research_data".
 4. Make sure the code and the Excel file are located in the same folder on your computer.
 5. Uncomment the plots that you want to become visible.
 6. Run the code.
+7. Download and open document "counties_continents_used_IER" to see figure 3.
 
 
 ## 3. Goal of the project - Sample Test
