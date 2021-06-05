@@ -58,6 +58,15 @@ First the data is pre-processed to filter out incomplete data-sets. After this i
 
 ## Style test
 Example of coding style:
+```
+%find correlation between the various variables
+%x:the ratio CDR/CMR
+%y:the gender wage gap (%)
+%z:children that experienced violence (%)
+r_xy=corrcoef(Matrix_w(:,1), Matrix_w(:,2));    %Correlation between x and y
+r_yz=corrcoef(Matrix_w(:,2), Matrix_w(:,3));    %Correlation between y and z   
+r_xz=corrcoef(Matrix_w(:,3), Matrix_w(:,1));    %Correlation between x and z
+```
 
 ## Built with and acknowledgements
 The helps of MathWorks MATLAB forum and the Help Center.
